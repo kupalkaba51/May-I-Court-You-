@@ -1,0 +1,203 @@
+<!DOCTYPE html><html>
+<head>
+    <style>
+        body {
+            background-color: #FFC0CB; /* Soft pink background */
+            background-image: radial-gradient(circle, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1); /* Sweet gradient */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .heart {
+            position: fixed;
+            font-size: 24px;
+            color: red;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100px) translateX(0); opacity: 1; }
+            100% { transform: translateY(100vh) translateX(20px); opacity: 0; }
+        }
+        .container {
+            background-color: rgba(255, 182, 193, 0.9); /* Light pink container */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+        }
+        .celebration {
+            position: absolute;
+            font-size: 24px;
+            animation: floatUp 5s linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-500px); opacity: 0; }
+        }
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 100;
+        }
+        .popup h2 {
+            color: #f44336;
+        }
+        .popup p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .sparkle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: gold;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: sparkle 2s linear infinite;
+        }
+        @keyframes sparkle {
+            0% { transform: scale(0.5); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.7; }
+            100% { transform: scale(0.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>May I court you po?🥺❤️</h2>
+        <button id="yesBtn" onclick="acceptProposal()">Yes</button>
+        <button id="noBtn" onclick="changeNoText()">No</button>
+    </div>
+    <script>
+        let noClickCount = 0;
+        let yesClickCount = 0;
+        const noMessages = [
+            "Luh",
+            "Please think again!",
+            "Give me a chance?",
+            "Grabe ba",
+            "I'm serious about this.",
+            "Sige na.",
+            "Let's give it a try!",
+            "I'm waiting for you.",
+            "This could be great!",
+            "You're missing out!",
+            "Take a leap of faith.",
+            "I promise I'll make you happy.",
+            "Don't you feel the spark?",
+            "I'm not giving up!",
+            "Come on, just once!",
+            "You're so close to saying yes!",
+            "Think of all the memories we can make.",
+            "I know you'll say yes soon.",
+            "This is destiny!",
+            "Last chance before we are a couple!"
+        ];
+        const yesMessages = [
+            "Really?",
+            "Salamat Quim ",
+            "Love U ",
+        ];function acceptProposal() {
+        if (yesClickCount < 2) {
+            document.getElementById("yesBtn").innerText = yesMessages[yesClickCount];
+            yesClickCount++;
+        } else {
+            showPopup("🎉 Yay! We're a couple now! 🎉", "Congratulations to us! Let's create beautiful memories together! ❤️ Love You Quim");
+            createCelebration();
+        }
+    }
+    
+    function changeNoText() {
+        if (noClickCount < 20) {
+            document.getElementById("noBtn").innerText = noMessages[noClickCount];
+            noClickCount++;
+        } else {
+            showPopup("💖 You clicked too much! We're together now! 💖", "Fate has spoken. Congratulations to us! 🌸 Love You Quim");
+            document.getElementById("noBtn").innerText = "We're together now!";
+            document.getElementById("noBtn").onclick = acceptProposal;
+        }
+    }
+    
+    function showPopup(title, message) {
+        const popup = document.createElement('div');
+        popup.className = 'popup';
+        popup.innerHTML = `
+            <h2>${title}</h2>
+            <p>${message}</p>
+        `;
+        document.body.appendChild(popup);
+        setTimeout(() => popup.remove(), 5000);
+    }
+    
+    function createCelebration() {
+        for (let i = 0; i < 30; i++) {
+            let element = document.createElement('div');
+            element.className = 'celebration';
+            element.innerHTML = Math.random() > 0.5 ? '❤️' : '🌸';
+            element.style.left = Math.random() * window.innerWidth + 'px';
+            element.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(element);
+            setTimeout(() => element.remove(), 5000);
+        }
+    }
+    
+    function createFallingHearts() {
+        setInterval(() => {
+            let heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }, 300);
+    }
+    
+    function createSparkles() {
+        setInterval(() => {
+            let sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 2000);
+        }, 200);
+    }
+    
+    createFallingHearts();
+    createSparkles();
+</script>
+
+</body>
+</html>
